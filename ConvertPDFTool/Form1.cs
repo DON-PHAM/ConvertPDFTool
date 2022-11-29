@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Aspose.Pdf;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -70,10 +71,13 @@ namespace ConvertPDFTool
             new Aspose.Pdf.License().SetLicense(Helper.License.LStream);
 
             Aspose.Pdf.Document pdfDocument = new Aspose.Pdf.Document(txtChooseFile.Text);
-
-            for(int pageCount = 1; pageCount <= pdfDocument.Pages.Count; pageCount++)
+            int pageCount = 1;
+            foreach (Page pdfPage in pdfDocument.Pages)
             {
-                
+                Document newDocument = new Document();
+                newDocument.Pages.Add(pdfPage);
+                newDocument.Save(txtSaveFile.Text + "/" + "page_" + pageCount + ".pdf");
+                pageCount++;
             }
 
         }
