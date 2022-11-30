@@ -72,14 +72,27 @@ namespace ConvertPDFTool
 
             Aspose.Pdf.Document pdfDocument = new Aspose.Pdf.Document(txtChooseFile.Text);
             int pageCount = 1;
+            processBar.Minimum = pageCount;
+            processBar.Maximum = pdfDocument.Pages.Count;
+            
             foreach (Page pdfPage in pdfDocument.Pages)
             {
                 Document newDocument = new Document();
                 newDocument.Pages.Add(pdfPage);
-                newDocument.Save(txtSaveFile.Text + "/" + "page_" + pageCount + ".pdf");
+                var nameFile = Path.GetFileNameWithoutExtension(txtChooseFile.Text);
+                var pathFile = txtSaveFile.Text + "\\" + nameFile+ "_" + pageCount + ".pdf";
+                lstView.Items.Add(pathFile);
+                newDocument.Save(pathFile);
+                processBar.PerformStep();
                 pageCount++;
             }
+            MessageBox.Show("Chuyển đổi thành công", "Thông báo");
 
+        }
+
+        private void frmConvertPDF_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
         }
     }
 }
