@@ -21,6 +21,9 @@ namespace ConvertPDFTool
         public frmConvertPDFtoPNG()
         {
             InitializeComponent();
+            lbPercent.Text = "";
+            txtFilePDF.Enabled = false;
+            txtSaveFile.Enabled = false;
         }
 
         private void btnChooseFile_Click(object sender, EventArgs e)
@@ -68,7 +71,26 @@ namespace ConvertPDFTool
             Document document = new Document(txtFilePDF.Text);
             var pathFile = txtSaveFile.Text;
             var name = Path.GetFileNameWithoutExtension(txtFilePDF.Text);
-            ConvertIMG.ConvertPDFtoIMG(pnDevice, pathFile, name, "png", document);
+            //ConvertIMG.ConvertPDFtoIMG(pnDevice, pathFile, name, "png", document);
+            processBar.Minimum = 0;
+            processBar.Maximum = document.Pages.Count;
+            double percent = 100 /(double) document.Pages.Count;
+            for (int pageCount = 1; pageCount <= document.Pages.Count; pageCount++)
+            {
+                using (FileStream imageStream =
+                new FileStream($"{pathFile}/{name}_{pageCount}.png",FileMode.Create))
+                {
+                    // Convert a particular page and save the image to stream
+                    pnDevice.Process(document.Pages[pageCount], imageStream);
+                   
+                    // Close stream
+                    imageStream.Close();
+                }
+                processBar.Value = pageCount;
+                double a =+ (double) percent;
+                lbPercent.Text = "Success " + a + "%";
+            }
+
             foreach (string item in Directory.GetFiles(txtSaveFile.Text))
             {
                 lstImage.Images.Add(Icon.ExtractAssociatedIcon(item));

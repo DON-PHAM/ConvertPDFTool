@@ -41,6 +41,7 @@ namespace ConvertPDFTool
             this.btnConvert = new MaterialSkin.Controls.MaterialRaisedButton();
             this.processBar = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
+            this.lbPercent = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtFilePDF
@@ -172,11 +173,21 @@ namespace ConvertPDFTool
             this.label1.TabIndex = 9;
             this.label1.Text = "Chuyển đổi PDF sang PNG";
             // 
+            // lbPercent
+            // 
+            this.lbPercent.AutoSize = true;
+            this.lbPercent.Location = new System.Drawing.Point(713, 270);
+            this.lbPercent.Name = "lbPercent";
+            this.lbPercent.Size = new System.Drawing.Size(38, 15);
+            this.lbPercent.TabIndex = 10;
+            this.lbPercent.Text = "label2";
+            // 
             // frmConvertPDFtoPNG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(799, 537);
+            this.Controls.Add(this.lbPercent);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.processBar);
             this.Controls.Add(this.btnConvert);
@@ -207,5 +218,6 @@ namespace ConvertPDFTool
         private MaterialSkin.Controls.MaterialRaisedButton btnConvert;
         private System.Windows.Forms.ProgressBar processBar;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lbPercent;
     }
 }
