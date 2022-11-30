@@ -35,18 +35,19 @@ namespace ConvertPDFTool
             this.btnChooseFile = new MaterialSkin.Controls.MaterialRaisedButton();
             this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
             this.txtSaveFile = new MaterialSkin.Controls.MaterialSingleLineTextField();
-            this.materialRaisedButton1 = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.btnSaveFile = new MaterialSkin.Controls.MaterialRaisedButton();
             this.lstImage = new System.Windows.Forms.ImageList(this.components);
             this.lstView = new System.Windows.Forms.ListView();
             this.btnConvert = new MaterialSkin.Controls.MaterialRaisedButton();
             this.processBar = new System.Windows.Forms.ProgressBar();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtFilePDF
             // 
             this.txtFilePDF.Depth = 0;
             this.txtFilePDF.Hint = "";
-            this.txtFilePDF.Location = new System.Drawing.Point(58, 12);
+            this.txtFilePDF.Location = new System.Drawing.Point(58, 93);
             this.txtFilePDF.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtFilePDF.Name = "txtFilePDF";
             this.txtFilePDF.PasswordChar = '\0';
@@ -63,7 +64,7 @@ namespace ConvertPDFTool
             this.materialLabel1.Depth = 0;
             this.materialLabel1.Font = new System.Drawing.Font("Roboto", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.materialLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel1.Location = new System.Drawing.Point(12, 16);
+            this.materialLabel1.Location = new System.Drawing.Point(12, 97);
             this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel1.Name = "materialLabel1";
             this.materialLabel1.Size = new System.Drawing.Size(69, 19);
@@ -73,7 +74,7 @@ namespace ConvertPDFTool
             // btnChooseFile
             // 
             this.btnChooseFile.Depth = 0;
-            this.btnChooseFile.Location = new System.Drawing.Point(713, 12);
+            this.btnChooseFile.Location = new System.Drawing.Point(713, 93);
             this.btnChooseFile.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnChooseFile.Name = "btnChooseFile";
             this.btnChooseFile.Primary = true;
@@ -89,7 +90,7 @@ namespace ConvertPDFTool
             this.materialLabel2.Depth = 0;
             this.materialLabel2.Font = new System.Drawing.Font("Roboto", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.materialLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel2.Location = new System.Drawing.Point(15, 60);
+            this.materialLabel2.Location = new System.Drawing.Point(15, 141);
             this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel2.Name = "materialLabel2";
             this.materialLabel2.Size = new System.Drawing.Size(66, 19);
@@ -100,7 +101,7 @@ namespace ConvertPDFTool
             // 
             this.txtSaveFile.Depth = 0;
             this.txtSaveFile.Hint = "";
-            this.txtSaveFile.Location = new System.Drawing.Point(87, 60);
+            this.txtSaveFile.Location = new System.Drawing.Point(87, 141);
             this.txtSaveFile.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtSaveFile.Name = "txtSaveFile";
             this.txtSaveFile.PasswordChar = '\0';
@@ -111,18 +112,18 @@ namespace ConvertPDFTool
             this.txtSaveFile.TabIndex = 4;
             this.txtSaveFile.UseSystemPasswordChar = false;
             // 
-            // materialRaisedButton1
+            // btnSaveFile
             // 
-            this.materialRaisedButton1.Depth = 0;
-            this.materialRaisedButton1.Location = new System.Drawing.Point(713, 60);
-            this.materialRaisedButton1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialRaisedButton1.Name = "materialRaisedButton1";
-            this.materialRaisedButton1.Primary = true;
-            this.materialRaisedButton1.Size = new System.Drawing.Size(75, 23);
-            this.materialRaisedButton1.TabIndex = 5;
-            this.materialRaisedButton1.Text = "Brower";
-            this.materialRaisedButton1.UseVisualStyleBackColor = true;
-            this.materialRaisedButton1.Click += new System.EventHandler(this.materialRaisedButton1_Click);
+            this.btnSaveFile.Depth = 0;
+            this.btnSaveFile.Location = new System.Drawing.Point(713, 141);
+            this.btnSaveFile.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnSaveFile.Name = "btnSaveFile";
+            this.btnSaveFile.Primary = true;
+            this.btnSaveFile.Size = new System.Drawing.Size(75, 23);
+            this.btnSaveFile.TabIndex = 5;
+            this.btnSaveFile.Text = "Brower";
+            this.btnSaveFile.UseVisualStyleBackColor = true;
+            this.btnSaveFile.Click += new System.EventHandler(this.btnSaveFile_Click);
             // 
             // lstImage
             // 
@@ -134,7 +135,7 @@ namespace ConvertPDFTool
             // 
             this.lstView.HideSelection = false;
             this.lstView.LargeImageList = this.lstImage;
-            this.lstView.Location = new System.Drawing.Point(15, 113);
+            this.lstView.Location = new System.Drawing.Point(15, 194);
             this.lstView.Name = "lstView";
             this.lstView.Size = new System.Drawing.Size(653, 300);
             this.lstView.TabIndex = 6;
@@ -143,7 +144,7 @@ namespace ConvertPDFTool
             // btnConvert
             // 
             this.btnConvert.Depth = 0;
-            this.btnConvert.Location = new System.Drawing.Point(685, 114);
+            this.btnConvert.Location = new System.Drawing.Point(685, 195);
             this.btnConvert.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnConvert.Name = "btnConvert";
             this.btnConvert.Primary = true;
@@ -155,20 +156,32 @@ namespace ConvertPDFTool
             // 
             // processBar
             // 
-            this.processBar.Location = new System.Drawing.Point(688, 154);
+            this.processBar.Location = new System.Drawing.Point(688, 235);
             this.processBar.Name = "processBar";
             this.processBar.Size = new System.Drawing.Size(100, 23);
             this.processBar.TabIndex = 8;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label1.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label1.Location = new System.Drawing.Point(234, 33);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(350, 37);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Chuyển đổi PDF sang PNG";
             // 
             // frmConvertPDFtoPNG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(799, 537);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.processBar);
             this.Controls.Add(this.btnConvert);
             this.Controls.Add(this.lstView);
-            this.Controls.Add(this.materialRaisedButton1);
+            this.Controls.Add(this.btnSaveFile);
             this.Controls.Add(this.txtSaveFile);
             this.Controls.Add(this.materialLabel2);
             this.Controls.Add(this.btnChooseFile);
@@ -188,10 +201,11 @@ namespace ConvertPDFTool
         private MaterialSkin.Controls.MaterialRaisedButton btnChooseFile;
         private MaterialSkin.Controls.MaterialLabel materialLabel2;
         private MaterialSkin.Controls.MaterialSingleLineTextField txtSaveFile;
-        private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton1;
+        private MaterialSkin.Controls.MaterialRaisedButton btnSaveFile;
         private System.Windows.Forms.ImageList lstImage;
         private System.Windows.Forms.ListView lstView;
         private MaterialSkin.Controls.MaterialRaisedButton btnConvert;
         private System.Windows.Forms.ProgressBar processBar;
+        private System.Windows.Forms.Label label1;
     }
 }

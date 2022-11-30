@@ -68,6 +68,7 @@ namespace ConvertPDFTool
         {
             if (Path.GetExtension(txtChooseFile.Text).ToLower() != ".pdf")
                 return;
+            //Đăng ký bản quyền
             new Aspose.Pdf.License().SetLicense(Helper.License.LStream);
 
             Aspose.Pdf.Document pdfDocument = new Aspose.Pdf.Document(txtChooseFile.Text);

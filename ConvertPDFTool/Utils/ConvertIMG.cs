@@ -5,23 +5,28 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ConvertPDFTool.Utils
 {
     public class ConvertIMG
     {
-        public static void ConvertODFtoIMG(ImageDevice imageDevice, string pathFile,string ext, Document pdfDocument)
+        public static void ConvertPDFtoIMG(ImageDevice imageDevice, string pathFile, string nameFile, string ext, Document pdfDocument)
         {
-            for(int pageCount = 1; pageCount <= pdfDocument.Pages.Count; pageCount++)
+
+            for (int pageCount = 1; pageCount <= pdfDocument.Pages.Count; pageCount++)
             {
-                using (FileStream imageStream = new FileStream($"{pathFile}/image{pageCount}.{ext}", FileMode.Create))
+                using (FileStream imageStream = new FileStream($"{pathFile}/{nameFile}_{pageCount}.{ext}", FileMode.Create))
                 {
                     imageDevice.Process(pdfDocument.Pages[pageCount], imageStream);
 
                     imageStream.Close();
-                } 
+                }
+                Thread.Sleep(1000);
             }
+
+
         }
 
     }
