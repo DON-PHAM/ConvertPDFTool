@@ -94,5 +94,11 @@ namespace ConvertPDFTool
         {
             this.DialogResult = DialogResult.Cancel;
         }
+
+        private void frmConvertPDF_Load(object sender, EventArgs e)
+        {
+            txtChooseFile.Enabled = false;
+            txtSaveFile.Enabled = false;
+        }
     }
 }

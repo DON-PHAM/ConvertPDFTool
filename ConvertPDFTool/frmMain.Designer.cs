@@ -95,6 +95,7 @@ namespace ConvertPDFTool
             this.btnConvertPDFtoPNG.TabIndex = 3;
             this.btnConvertPDFtoPNG.Text = "Chuyển PDF sang PNG";
             this.btnConvertPDFtoPNG.UseVisualStyleBackColor = true;
+            this.btnConvertPDFtoPNG.Click += new System.EventHandler(this.btnConvertPDFtoPNG_Click);
             // 
             // btnSplitPDF
             // 
@@ -114,6 +115,7 @@ namespace ConvertPDFTool
             this.btnMergePDF.TabIndex = 5;
             this.btnMergePDF.Text = "Ghép File PDF";
             this.btnMergePDF.UseVisualStyleBackColor = true;
+            this.btnMergePDF.Click += new System.EventHandler(this.btnMergePDF_Click);
             // 
             // btnConvertIMGtoPDF
             // 
@@ -123,6 +125,7 @@ namespace ConvertPDFTool
             this.btnConvertIMGtoPDF.TabIndex = 6;
             this.btnConvertIMGtoPDF.Text = "Chuyển ảnh sang PDF";
             this.btnConvertIMGtoPDF.UseVisualStyleBackColor = true;
+            this.btnConvertIMGtoPDF.Click += new System.EventHandler(this.btnConvertIMGtoPDF_Click);
             // 
             // btnOCRPDF
             // 
@@ -132,6 +135,7 @@ namespace ConvertPDFTool
             this.btnOCRPDF.TabIndex = 7;
             this.btnOCRPDF.Text = "OCR PDF";
             this.btnOCRPDF.UseVisualStyleBackColor = true;
+            this.btnOCRPDF.Click += new System.EventHandler(this.btnOCRPDF_Click);
             // 
             // btnZipPDF
             // 
@@ -141,6 +145,7 @@ namespace ConvertPDFTool
             this.btnZipPDF.TabIndex = 8;
             this.btnZipPDF.Text = "Nén file PDF";
             this.btnZipPDF.UseVisualStyleBackColor = true;
+            this.btnZipPDF.Click += new System.EventHandler(this.btnZipPDF_Click);
             // 
             // btnConvertPDFtoJPG
             // 
@@ -150,6 +155,7 @@ namespace ConvertPDFTool
             this.btnConvertPDFtoJPG.TabIndex = 9;
             this.btnConvertPDFtoJPG.Text = "Chuyển PDF sang JPG";
             this.btnConvertPDFtoJPG.UseVisualStyleBackColor = true;
+            this.btnConvertPDFtoJPG.Click += new System.EventHandler(this.btnConvertPDFtoJPG_Click);
             // 
             // frmMain
             // 

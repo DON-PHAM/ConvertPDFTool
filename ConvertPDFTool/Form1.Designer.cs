@@ -183,6 +183,7 @@ namespace ConvertPDFTool
             this.Name = "frmConvertPDF";
             this.Text = "Convert PDF Tool";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmConvertPDF_FormClosing);
+            this.Load += new System.EventHandler(this.frmConvertPDF_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

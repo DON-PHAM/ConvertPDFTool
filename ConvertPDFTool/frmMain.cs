@@ -34,5 +34,53 @@ namespace ConvertPDFTool
         {
             Application.Exit();
         }
+
+        private void btnConvertPDFtoPNG_Click(object sender, EventArgs e)
+        {
+            using (var frm = new frmConvertPDFtoPNG())
+            {
+                frm.ShowDialog();
+            }
+        }
+
+        private void btnMergePDF_Click(object sender, EventArgs e)
+        {
+            using (var frm = new frmMergePDF())
+            {
+                frm.ShowDialog();
+            }
+        }
+
+        private void btnOCRPDF_Click(object sender, EventArgs e)
+        {
+            using (var frm = new OCRPDF())
+            {
+                frm.ShowDialog();
+            }
+        }
+
+        private void btnConvertPDFtoJPG_Click(object sender, EventArgs e)
+        {
+            using (var frm = new frmConvertPDFtoJPG())
+            {
+                frm.ShowDialog();
+            }
+        }
+
+        private void btnZipPDF_Click(object sender, EventArgs e)
+        {
+            using (var frm = new frmZipPDF())
+            {
+                frm.ShowDialog();
+            }
+        }
+
+        private void btnConvertIMGtoPDF_Click(object sender, EventArgs e)
+        {
+            using (var frm = new frmConvertIMGtoPDF())
+            {
+                frm.ShowDialog();
+            }
+        }
     }
 }
