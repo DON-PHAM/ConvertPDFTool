@@ -17,6 +17,7 @@ namespace ConvertPDFTool
 {
     public partial class frmConvertPDFtoPNG : Form
     {
+        private bool isProcessRunning = false;
         List<string> listFiles = new List<string>();
         public frmConvertPDFtoPNG()
         {
@@ -62,43 +63,53 @@ namespace ConvertPDFTool
 
         private void btnConvert_Click(object sender, EventArgs e)
         {
+
             if (Path.GetExtension(txtFilePDF.Text).ToLower() != ".pdf")
                 return;
-            //Đăng ký bản quyền
-            new Aspose.Pdf.License().SetLicense(Helper.License.LStream);
-            Resolution resolution = new Resolution(300);
-            PngDevice pnDevice = new PngDevice(resolution);
-            Document document = new Document(txtFilePDF.Text);
-            var pathFile = txtSaveFile.Text;
-            var name = Path.GetFileNameWithoutExtension(txtFilePDF.Text);
-            //ConvertIMG.ConvertPDFtoIMG(pnDevice, pathFile, name, "png", document);
-            processBar.Minimum = 0;
-            processBar.Maximum = document.Pages.Count;
-            double percent = 100 /(double) document.Pages.Count;
-            for (int pageCount = 1; pageCount <= document.Pages.Count; pageCount++)
+            if (isProcessRunning)
+                return;
+            ProgressDialog progressBar = new ProgressDialog();
+
+            Thread th = new Thread(new ThreadStart(() =>
             {
-                using (FileStream imageStream =
-                new FileStream($"{pathFile}/{name}_{pageCount}.png",FileMode.Create))
+                isProcessRunning = true;
+                //Đăng ký bản quyền
+                new Aspose.Pdf.License().SetLicense(Helper.License.LStream);
+                Resolution resolution = new Resolution(300);
+                PngDevice pnDevice = new PngDevice(resolution);
+                Document document = new Document(txtFilePDF.Text);
+                var pathFile = txtSaveFile.Text;
+                var name = Path.GetFileNameWithoutExtension(txtFilePDF.Text);
+
+                //processBar.Minimum = 0;
+                //processBar.Maximum = document.Pages.Count;
+                for (int pageCount = 1; pageCount <= document.Pages.Count; pageCount++)
                 {
-                    // Convert a particular page and save the image to stream
-                    pnDevice.Process(document.Pages[pageCount], imageStream);
-                   
-                    // Close stream
-                    imageStream.Close();
+                    var path = $"{pathFile}/{name}_{pageCount}.png";
+                    using (FileStream imageStream = new FileStream(path, FileMode.Create))
+                    {
+                        // Convert a particular page and save the image to stream
+                        pnDevice.Process(document.Pages[pageCount], imageStream);
+                        //processBar.Value = pageCount;
+                        // Close stream
+                        imageStream.Close();
+                        lstImage.Images.Add(Icon.ExtractAssociatedIcon(path));
+                        FileInfo fi = new FileInfo(path);
+                        listFiles.Add(fi.FullName);
+                        //lstView.Items.Add(fi.Name, lstImage.Images.Count - 1);
+
+                    }
+                    Thread.Sleep(2);
+                    if(pageCount < 100) {
+                        progressBar.UpdateProgress(pageCount);
+                    }
+                    
                 }
-                processBar.Value = pageCount;
-                double a =+ (double) percent;
-                lbPercent.Text = "Success " + a + "%";
-            }
-
-            foreach (string item in Directory.GetFiles(txtSaveFile.Text))
-            {
-                lstImage.Images.Add(Icon.ExtractAssociatedIcon(item));
-                FileInfo fi = new FileInfo(item);
-                listFiles.Add(fi.FullName);
-                lstView.Items.Add(fi.Name, lstImage.Images.Count - 1);
-            }
-
+                isProcessRunning = false;
+            }));
+            th.Start();
+            progressBar.ShowDialog();
+            progressBar.Close();
             MessageBox.Show("Chuyển đổi thành công", "Thông báo");
         }
 
@@ -111,6 +122,17 @@ namespace ConvertPDFTool
                     txtSaveFile.Text = fbd.SelectedPath;
                 }
 
+            }
+        }
+
+        private void loading()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                if (processBar.InvokeRequired)
+                    processBar.Invoke(new Action(loading));
+                else
+                    processBar.Value = i;
             }
         }
     }
