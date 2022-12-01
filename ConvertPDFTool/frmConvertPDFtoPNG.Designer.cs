@@ -138,7 +138,7 @@ namespace ConvertPDFTool
             this.lstView.LargeImageList = this.lstImage;
             this.lstView.Location = new System.Drawing.Point(15, 194);
             this.lstView.Name = "lstView";
-            this.lstView.Size = new System.Drawing.Size(653, 300);
+            this.lstView.Size = new System.Drawing.Size(664, 300);
             this.lstView.TabIndex = 6;
             this.lstView.UseCompatibleStateImageBehavior = false;
             // 

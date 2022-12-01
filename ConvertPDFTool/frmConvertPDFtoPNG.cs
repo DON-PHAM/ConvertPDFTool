@@ -27,6 +27,17 @@ namespace ConvertPDFTool
             txtSaveFile.Enabled = false;
         }
 
+        private void frmConvertPDFtoPNG_Load(object sender, EventArgs e)
+        {
+            bw = new BackgroundWorker();
+            bw.WorkerReportsProgress = true;
+            bw.WorkerSupportsCancellation = true;
+
+            bw.DoWork += bw_DoWork;
+            bw.ProgressChanged += bw_ProgressChanged;
+            bw.RunWorkerCompleted += bw_RunworkerCompleted;
+        }
+
         private void btnChooseFile_Click(object sender, EventArgs e)
         {
             listFiles.Clear();
@@ -65,10 +76,6 @@ namespace ConvertPDFTool
         {
             bw.RunWorkerAsync();
         }
-        private void ShowImage()
-        {
-            
-        }
         private void btnSaveFile_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog fbd = new FolderBrowserDialog())
@@ -80,17 +87,6 @@ namespace ConvertPDFTool
 
             }
         }
-        private void frmConvertPDFtoPNG_Load(object sender, EventArgs e)
-        {
-            bw = new BackgroundWorker();
-            bw.WorkerReportsProgress = true;
-            bw.WorkerSupportsCancellation = true;
-
-            bw.DoWork += bw_DoWork;
-            bw.ProgressChanged += bw_ProgressChanged;
-            bw.RunWorkerCompleted += bw_RunworkerCompleted;
-        }
-
         private void bw_RunworkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             MessageBox.Show("Chuyển đổi thành công", "Thông báo");
@@ -100,6 +96,7 @@ namespace ConvertPDFTool
         {
             processBar.Maximum = document.Pages.Count;
             processBar.Value = e.ProgressPercentage;
+
             //foreach (string item in Directory.GetFiles(txtSaveFile.Text))
             //{
             //    lstImage.Images.Add(Icon.ExtractAssociatedIcon(item));
@@ -114,7 +111,6 @@ namespace ConvertPDFTool
         {
             if (Path.GetExtension(txtFilePDF.Text).ToLower() != ".pdf")
                 return;
-            
             //Đăng ký bản quyền
             new Aspose.Pdf.License().SetLicense(Helper.License.LStream);
             Resolution resolution = new Resolution(300);
@@ -133,14 +129,12 @@ namespace ConvertPDFTool
                 {
                     // Convert a particular page and save the image to stream
                     pnDevice.Process(document.Pages[pageCount], imageStream);
-                    bw.ReportProgress(pageCount);
-                    
+                    (sender as BackgroundWorker).ReportProgress(pageCount);
                     // Close stream
                     imageStream.Close();
-                    
                 }
             }
-            
+            e.Result = 10;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
