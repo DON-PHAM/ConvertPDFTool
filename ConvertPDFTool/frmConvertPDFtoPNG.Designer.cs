@@ -38,6 +38,7 @@ namespace ConvertPDFTool
             this.btnSaveFile = new MaterialSkin.Controls.MaterialRaisedButton();
             this.lstImage = new System.Windows.Forms.ImageList(this.components);
             this.lstView = new System.Windows.Forms.ListView();
+            this.filename = new System.Windows.Forms.ColumnHeader();
             this.btnConvert = new MaterialSkin.Controls.MaterialRaisedButton();
             this.processBar = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
@@ -134,6 +135,8 @@ namespace ConvertPDFTool
             // 
             // lstView
             // 
+            this.lstView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.filename});
             this.lstView.HideSelection = false;
             this.lstView.LargeImageList = this.lstImage;
             this.lstView.Location = new System.Drawing.Point(15, 194);
@@ -141,6 +144,11 @@ namespace ConvertPDFTool
             this.lstView.Size = new System.Drawing.Size(664, 300);
             this.lstView.TabIndex = 6;
             this.lstView.UseCompatibleStateImageBehavior = false;
+            // 
+            // filename
+            // 
+            this.filename.Text = "FileName";
+            this.filename.Width = 400;
             // 
             // btnConvert
             // 
@@ -224,5 +232,6 @@ namespace ConvertPDFTool
         private System.Windows.Forms.ProgressBar processBar;
         private System.Windows.Forms.Label label1;
         private MaterialSkin.Controls.MaterialRaisedButton btnCancel;
+        private System.Windows.Forms.ColumnHeader filename;
     }
 }

@@ -24,6 +24,7 @@ namespace ConvertPDFTool
         {
             txtChooseFile.Enabled = false;
             txtSaveFile.Enabled = false;
+            txtSelectPage.Enabled = false;
 
             bw = new BackgroundWorker();
             bw.WorkerReportsProgress = true;
@@ -117,31 +118,8 @@ namespace ConvertPDFTool
 
         private void btnConvert_Click(object sender, EventArgs e)
         {
-
-            bw.RunWorkerAsync();
-            //if (Path.GetExtension(txtChooseFile.Text).ToLower() != ".pdf")
-            //    return;
-            ////Đăng ký bản quyền
-            //new Aspose.Pdf.License().SetLicense(Helper.License.LStream);
-
-            //pdfDocument = new Aspose.Pdf.Document(txtChooseFile.Text);
-            //int pageCount = 1;
-            //processBar.Minimum = pageCount;
-            //processBar.Maximum = pdfDocument.Pages.Count;
-            
-            //foreach (Page pdfPage in pdfDocument.Pages)
-            //{
-            //    Document newDocument = new Document();
-            //    newDocument.Pages.Add(pdfPage);
-            //    var nameFile = Path.GetFileNameWithoutExtension(txtChooseFile.Text);
-            //    var pathFile = txtSaveFile.Text + "\\" + nameFile+ "_" + pageCount + ".pdf";
-            //    lstView.Items.Add(pathFile);
-            //    newDocument.Save(pathFile);
-            //    processBar.PerformStep();
-            //    pageCount++;
-            //}
-            
-
+            if(!bw.IsBusy)
+                bw.RunWorkerAsync();
         }
 
         private void frmConvertPDF_FormClosing(object sender, FormClosingEventArgs e)
@@ -149,6 +127,12 @@ namespace ConvertPDFTool
             this.DialogResult = DialogResult.Cancel;
         }
 
-        
+        private void cbPage_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbPage.Checked)
+                txtSelectPage.Enabled = true;
+            else
+                txtSelectPage.Enabled = false;
+        }
     }
 }

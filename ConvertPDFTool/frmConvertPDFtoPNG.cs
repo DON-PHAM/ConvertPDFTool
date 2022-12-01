@@ -29,6 +29,13 @@ namespace ConvertPDFTool
 
         private void frmConvertPDFtoPNG_Load(object sender, EventArgs e)
         {
+            //lstView.View = View.Details;
+            //lstView.GridLines = true;
+            //lstView.FullRowSelect = true;
+            //lstView.Columns.Add("File Name");
+            //lstView.Columns.Add("Page");
+
+
             bw = new BackgroundWorker();
             bw.WorkerReportsProgress = true;
             bw.WorkerSupportsCancellation = true;
@@ -74,7 +81,16 @@ namespace ConvertPDFTool
 
         private void btnConvert_Click(object sender, EventArgs e)
         {
-            bw.RunWorkerAsync();
+            if (txtFilePDF.Text == "" || txtSaveFile.Text == "")
+            {
+                MessageBox.Show("Chưa có thông tin file hoặc đường dẫn lưu file");
+                return;
+            }
+            lstView.Items.Clear();
+            listFiles.Clear();
+            lstView.Items.Clear();
+            if (!bw.IsBusy)
+                bw.RunWorkerAsync();
         }
         private void btnSaveFile_Click(object sender, EventArgs e)
         {
@@ -89,7 +105,12 @@ namespace ConvertPDFTool
         }
         private void bw_RunworkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            MessageBox.Show("Chuyển đổi thành công", "Thông báo");
+            if (e.Cancelled)
+            {
+                MessageBox.Show("Bạn đã hủy bỏ tiến trình chuyển đổi");
+            }
+            else 
+                MessageBox.Show("Chuyển đổi thành công", "Thông báo");
         }
 
         private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -97,18 +118,13 @@ namespace ConvertPDFTool
             processBar.Maximum = document.Pages.Count;
             processBar.Value = e.ProgressPercentage;
 
-            //foreach (string item in Directory.GetFiles(txtSaveFile.Text))
-            //{
-            //    lstImage.Images.Add(Icon.ExtractAssociatedIcon(item));
-            //    FileInfo fi = new FileInfo(item);
-            //    listFiles.Add(fi.FullName);
-            //    lstView.Items.Add(fi.Name, lstImage.Images.Count - 1);
-            //}
+
             Application.DoEvents();
         }
 
         private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
+
             if (Path.GetExtension(txtFilePDF.Text).ToLower() != ".pdf")
                 return;
             //Đăng ký bản quyền
@@ -118,13 +134,16 @@ namespace ConvertPDFTool
             document = new Document(txtFilePDF.Text);
             var pathFile = txtSaveFile.Text;
             var name = Path.GetFileNameWithoutExtension(txtFilePDF.Text);
-            ProgressDialog frm = new ProgressDialog();
-            
+
             for (int pageCount = 1; pageCount <= document.Pages.Count; pageCount++)
             {
                 if (bw.CancellationPending)
+                {
+                    e.Cancel = true;
                     break;
-                var path = $"{pathFile}/{name}_{pageCount}.png";
+                }
+
+                var path = $"{pathFile}\\{name}_{pageCount}.png";
                 using (FileStream imageStream = new FileStream(path, FileMode.Create))
                 {
                     // Convert a particular page and save the image to stream
@@ -133,12 +152,49 @@ namespace ConvertPDFTool
                     // Close stream
                     imageStream.Close();
                 }
-            }
-        }
 
+
+                //FileInfo fi = new FileInfo(path);
+                //listFiles.Add(fi.FullName);
+
+                if (InvokeRequired)
+                {
+                    Invoke((MethodInvoker)delegate { AddItem(path, pageCount); });
+
+                }
+                else
+                {
+
+                    AddItem(path, pageCount);
+
+                }
+
+
+            }
+
+
+        }
+        private void AddItem(string path, int pageNum)
+        {
+            //lstImage.Images.Add(Icon.ExtractAssociatedIcon(path));
+            //lstView.SmallImageList = lstImage;
+            //string name = Path.GetFileName(path);
+            //ListViewItem items = new ListViewItem();
+            //items.SubItems.Add(name);
+            //items.SubItems.Add(pageNum.ToString());
+            //lstView.Items.Add(items);
+            //lstView.Items[pageNum-1].ImageIndex = 0;
+
+            lstImage.Images.Add(Icon.ExtractAssociatedIcon(path));
+            FileInfo fi = new FileInfo(path);
+            listFiles.Add(fi.FullName);
+            lstView.Items.Add(fi.Name, lstImage.Images.Count - 1);
+
+        }
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            bw.CancelAsync();
+            if (bw.IsBusy)
+                bw.CancelAsync();
         }
     }
 }

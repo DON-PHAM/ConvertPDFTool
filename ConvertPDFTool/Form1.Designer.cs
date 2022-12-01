@@ -39,6 +39,9 @@ namespace ConvertPDFTool
             this.processBar = new System.Windows.Forms.ProgressBar();
             this.lstView = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.cbPage = new System.Windows.Forms.CheckBox();
+            this.txtSelectPage = new System.Windows.Forms.TextBox();
+            this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
             this.SuspendLayout();
             // 
             // txtChooseFile
@@ -113,7 +116,7 @@ namespace ConvertPDFTool
             // btnConvert
             // 
             this.btnConvert.Depth = 0;
-            this.btnConvert.Location = new System.Drawing.Point(514, 183);
+            this.btnConvert.Location = new System.Drawing.Point(514, 229);
             this.btnConvert.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnConvert.Name = "btnConvert";
             this.btnConvert.Primary = true;
@@ -138,7 +141,7 @@ namespace ConvertPDFTool
             // 
             // processBar
             // 
-            this.processBar.Location = new System.Drawing.Point(514, 233);
+            this.processBar.Location = new System.Drawing.Point(514, 279);
             this.processBar.Name = "processBar";
             this.processBar.Size = new System.Drawing.Size(151, 18);
             this.processBar.TabIndex = 7;
@@ -149,7 +152,7 @@ namespace ConvertPDFTool
             this.lstView.ItemHeight = 15;
             this.lstView.Items.AddRange(new object[] {
             " "});
-            this.lstView.Location = new System.Drawing.Point(19, 183);
+            this.lstView.Location = new System.Drawing.Point(19, 229);
             this.lstView.Name = "lstView";
             this.lstView.Size = new System.Drawing.Size(489, 304);
             this.lstView.TabIndex = 9;
@@ -165,11 +168,44 @@ namespace ConvertPDFTool
             this.label1.TabIndex = 10;
             this.label1.Text = "Cắt PDF thành từng trang nhỏ";
             // 
+            // cbPage
+            // 
+            this.cbPage.AutoSize = true;
+            this.cbPage.Location = new System.Drawing.Point(106, 177);
+            this.cbPage.Name = "cbPage";
+            this.cbPage.Size = new System.Drawing.Size(15, 14);
+            this.cbPage.TabIndex = 11;
+            this.cbPage.UseVisualStyleBackColor = true;
+            this.cbPage.CheckedChanged += new System.EventHandler(this.cbPage_CheckedChanged);
+            // 
+            // txtSelectPage
+            // 
+            this.txtSelectPage.Location = new System.Drawing.Point(142, 173);
+            this.txtSelectPage.Name = "txtSelectPage";
+            this.txtSelectPage.Size = new System.Drawing.Size(186, 23);
+            this.txtSelectPage.TabIndex = 12;
+            // 
+            // materialLabel2
+            // 
+            this.materialLabel2.AutoSize = true;
+            this.materialLabel2.Depth = 0;
+            this.materialLabel2.Font = new System.Drawing.Font("Roboto", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.materialLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialLabel2.Location = new System.Drawing.Point(6, 173);
+            this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel2.Name = "materialLabel2";
+            this.materialLabel2.Size = new System.Drawing.Size(82, 19);
+            this.materialLabel2.TabIndex = 13;
+            this.materialLabel2.Text = "Chọn trang";
+            // 
             // frmConvertPDF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(676, 577);
+            this.Controls.Add(this.materialLabel2);
+            this.Controls.Add(this.txtSelectPage);
+            this.Controls.Add(this.cbPage);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lstView);
             this.Controls.Add(this.processBar);
@@ -202,6 +238,9 @@ namespace ConvertPDFTool
         private System.Windows.Forms.Label lbProcessBar;
         private System.Windows.Forms.ListBox lstView;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox cbPage;
+        private System.Windows.Forms.TextBox txtSelectPage;
+        private MaterialSkin.Controls.MaterialLabel materialLabel2;
     }
 }
 
