@@ -14,9 +14,60 @@ namespace ConvertPDFTool
 {
     public partial class frmConvertPDF : Form
     {
+        Document pdfDocument;
+        private BackgroundWorker bw;
         public frmConvertPDF()
         {
             InitializeComponent();
+        }
+        private void frmConvertPDF_Load(object sender, EventArgs e)
+        {
+            txtChooseFile.Enabled = false;
+            txtSaveFile.Enabled = false;
+
+            bw = new BackgroundWorker();
+            bw.WorkerReportsProgress = true;
+            bw.WorkerSupportsCancellation = true;
+
+            bw.DoWork += bw_DoWork;
+            bw.ProgressChanged += bw_ProgressChanged;
+            bw.RunWorkerCompleted += bw_RunworkerCompleted;
+        }
+
+        private void bw_RunworkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            MessageBox.Show("Chuyển đổi thành công", "Thông báo");
+        }
+
+        private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            processBar.Maximum = pdfDocument.Pages.Count;
+            processBar.Value = e.ProgressPercentage;
+
+            
+            Application.DoEvents();
+        }
+
+        private void bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            if (Path.GetExtension(txtChooseFile.Text).ToLower() != ".pdf")
+                return;
+            //Đăng ký bản quyền
+            new Aspose.Pdf.License().SetLicense(Helper.License.LStream);
+
+            pdfDocument = new Aspose.Pdf.Document(txtChooseFile.Text);
+            int pageCount = 1;
+            foreach (Page pdfPage in pdfDocument.Pages)
+            {
+                Document newDocument = new Document();
+                newDocument.Pages.Add(pdfPage);
+                var nameFile = Path.GetFileNameWithoutExtension(txtChooseFile.Text);
+                var pathFile = txtSaveFile.Text + "\\" + nameFile + "_" + pageCount + ".pdf";
+                //lstView.Items.Add(pathFile);
+                newDocument.Save(pathFile);
+                (sender as BackgroundWorker).ReportProgress(pageCount);
+                pageCount++;
+            }
         }
 
         private void btnChooseFile_Click(object sender, EventArgs e)
@@ -66,28 +117,30 @@ namespace ConvertPDFTool
 
         private void btnConvert_Click(object sender, EventArgs e)
         {
-            if (Path.GetExtension(txtChooseFile.Text).ToLower() != ".pdf")
-                return;
-            //Đăng ký bản quyền
-            new Aspose.Pdf.License().SetLicense(Helper.License.LStream);
 
-            Aspose.Pdf.Document pdfDocument = new Aspose.Pdf.Document(txtChooseFile.Text);
-            int pageCount = 1;
-            processBar.Minimum = pageCount;
-            processBar.Maximum = pdfDocument.Pages.Count;
+            bw.RunWorkerAsync();
+            //if (Path.GetExtension(txtChooseFile.Text).ToLower() != ".pdf")
+            //    return;
+            ////Đăng ký bản quyền
+            //new Aspose.Pdf.License().SetLicense(Helper.License.LStream);
+
+            //pdfDocument = new Aspose.Pdf.Document(txtChooseFile.Text);
+            //int pageCount = 1;
+            //processBar.Minimum = pageCount;
+            //processBar.Maximum = pdfDocument.Pages.Count;
             
-            foreach (Page pdfPage in pdfDocument.Pages)
-            {
-                Document newDocument = new Document();
-                newDocument.Pages.Add(pdfPage);
-                var nameFile = Path.GetFileNameWithoutExtension(txtChooseFile.Text);
-                var pathFile = txtSaveFile.Text + "\\" + nameFile+ "_" + pageCount + ".pdf";
-                lstView.Items.Add(pathFile);
-                newDocument.Save(pathFile);
-                processBar.PerformStep();
-                pageCount++;
-            }
-            MessageBox.Show("Chuyển đổi thành công", "Thông báo");
+            //foreach (Page pdfPage in pdfDocument.Pages)
+            //{
+            //    Document newDocument = new Document();
+            //    newDocument.Pages.Add(pdfPage);
+            //    var nameFile = Path.GetFileNameWithoutExtension(txtChooseFile.Text);
+            //    var pathFile = txtSaveFile.Text + "\\" + nameFile+ "_" + pageCount + ".pdf";
+            //    lstView.Items.Add(pathFile);
+            //    newDocument.Save(pathFile);
+            //    processBar.PerformStep();
+            //    pageCount++;
+            //}
+            
 
         }
 
@@ -96,10 +149,6 @@ namespace ConvertPDFTool
             this.DialogResult = DialogResult.Cancel;
         }
 
-        private void frmConvertPDF_Load(object sender, EventArgs e)
-        {
-            txtChooseFile.Enabled = false;
-            txtSaveFile.Enabled = false;
-        }
+        
     }
 }

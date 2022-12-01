@@ -134,7 +134,6 @@ namespace ConvertPDFTool
                     imageStream.Close();
                 }
             }
-            e.Result = 10;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
