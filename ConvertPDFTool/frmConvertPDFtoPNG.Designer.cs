@@ -41,7 +41,7 @@ namespace ConvertPDFTool
             this.btnConvert = new MaterialSkin.Controls.MaterialRaisedButton();
             this.processBar = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
-            this.lbPercent = new System.Windows.Forms.Label();
+            this.btnCancel = new MaterialSkin.Controls.MaterialRaisedButton();
             this.SuspendLayout();
             // 
             // txtFilePDF
@@ -173,21 +173,25 @@ namespace ConvertPDFTool
             this.label1.TabIndex = 9;
             this.label1.Text = "Chuyển đổi PDF sang PNG";
             // 
-            // lbPercent
+            // btnCancel
             // 
-            this.lbPercent.AutoSize = true;
-            this.lbPercent.Location = new System.Drawing.Point(713, 270);
-            this.lbPercent.Name = "lbPercent";
-            this.lbPercent.Size = new System.Drawing.Size(38, 15);
-            this.lbPercent.TabIndex = 10;
-            this.lbPercent.Text = "label2";
+            this.btnCancel.Depth = 0;
+            this.btnCancel.Location = new System.Drawing.Point(685, 280);
+            this.btnCancel.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Primary = true;
+            this.btnCancel.Size = new System.Drawing.Size(103, 23);
+            this.btnCancel.TabIndex = 10;
+            this.btnCancel.Text = "Hủy";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // frmConvertPDFtoPNG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(799, 537);
-            this.Controls.Add(this.lbPercent);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.processBar);
             this.Controls.Add(this.btnConvert);
@@ -200,6 +204,7 @@ namespace ConvertPDFTool
             this.Controls.Add(this.txtFilePDF);
             this.Name = "frmConvertPDFtoPNG";
             this.Text = "frmConvertPDFtoPNG";
+            this.Load += new System.EventHandler(this.frmConvertPDFtoPNG_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -218,6 +223,6 @@ namespace ConvertPDFTool
         private MaterialSkin.Controls.MaterialRaisedButton btnConvert;
         private System.Windows.Forms.ProgressBar processBar;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lbPercent;
+        private MaterialSkin.Controls.MaterialRaisedButton btnCancel;
     }
 }

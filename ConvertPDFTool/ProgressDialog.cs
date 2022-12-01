@@ -12,37 +12,56 @@ namespace ConvertPDFTool
 {
     public partial class ProgressDialog : Form
     {
+        private BackgroundWorker bw;
         public ProgressDialog()
         {
             InitializeComponent();
         }
-        public void UpdateProgress(int progress)
+        private void ProgressDialog_Load(object sender, EventArgs e)
         {
-            if (progressBar1.InvokeRequired)
-                progressBar1.BeginInvoke(new Action(() => progressBar1.Value = progress));
-            else
-                progressBar1.Value = progress;
+            bw = new BackgroundWorker();
+            bw.WorkerReportsProgress = true;
+            bw.WorkerSupportsCancellation = true;
+            bw.DoWork += bw_DoWork;
+            bw.RunWorkerCompleted += bw_RunWorkCompleted;
+            bw.ProgressChanged += bw_ProgressChanged;
         }
 
-        public void SetIndeterminate(bool isIndeterminate)
+        private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            if(progressBar1.InvokeRequired)
+            progressBar1.Value = e.ProgressPercentage;
+            Application.DoEvents();
+        }
+
+        private void bw_RunWorkCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            MessageBox.Show("Hoan thanh");
+        }
+
+        private void bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            for (int i = 1; i <= 100; i++)
             {
-                progressBar1.BeginInvoke(new Action(() =>
-                {
-                    if (isIndeterminate)
-                        progressBar1.Style = ProgressBarStyle.Marquee;
-                    else
-                        progressBar1.Style = ProgressBarStyle.Blocks;
-                }));
+                // neu chon nut ket thuc thi ngung
+                if (bw.CancellationPending) break;
+                // bao cao tien do
+                bw.ReportProgress(i, i);
             }
-            else
-            {
-                if (isIndeterminate)
-                    progressBar1.Style = ProgressBarStyle.Marquee;
-                else
-                    progressBar1.Style = ProgressBarStyle.Blocks;
-            }
+        }
+
+        public void Run()
+        {
+            bw.RunWorkerAsync();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            bw.CancelAsync();
+        }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            bw.RunWorkerAsync();
         }
     }
 }

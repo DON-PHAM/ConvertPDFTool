@@ -30,6 +30,8 @@ namespace ConvertPDFTool
         private void InitializeComponent()
         {
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnStart = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // progressBar1
@@ -39,14 +41,37 @@ namespace ConvertPDFTool
             this.progressBar1.Size = new System.Drawing.Size(288, 23);
             this.progressBar1.TabIndex = 0;
             // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(316, 12);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 1;
+            this.btnCancel.Text = "Hủy Bỏ";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnStart
+            // 
+            this.btnStart.Location = new System.Drawing.Point(422, 12);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(75, 23);
+            this.btnStart.TabIndex = 2;
+            this.btnStart.Text = "Start";
+            this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            // 
             // ProgressDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(319, 48);
+            this.ClientSize = new System.Drawing.Size(671, 52);
+            this.Controls.Add(this.btnStart);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.progressBar1);
             this.Name = "ProgressDialog";
             this.Text = "Processing...";
+            this.Load += new System.EventHandler(this.ProgressDialog_Load);
             this.ResumeLayout(false);
 
         }
@@ -54,5 +79,7 @@ namespace ConvertPDFTool
         #endregion
 
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnStart;
     }
 }

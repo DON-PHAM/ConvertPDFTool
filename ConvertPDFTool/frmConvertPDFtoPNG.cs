@@ -17,12 +17,12 @@ namespace ConvertPDFTool
 {
     public partial class frmConvertPDFtoPNG : Form
     {
-        private bool isProcessRunning = false;
+        private Document document;
+        private BackgroundWorker bw;
         List<string> listFiles = new List<string>();
         public frmConvertPDFtoPNG()
         {
             InitializeComponent();
-            lbPercent.Text = "";
             txtFilePDF.Enabled = false;
             txtSaveFile.Enabled = false;
         }
@@ -63,56 +63,12 @@ namespace ConvertPDFTool
 
         private void btnConvert_Click(object sender, EventArgs e)
         {
-
-            if (Path.GetExtension(txtFilePDF.Text).ToLower() != ".pdf")
-                return;
-            if (isProcessRunning)
-                return;
-            ProgressDialog progressBar = new ProgressDialog();
-
-            Thread th = new Thread(new ThreadStart(() =>
-            {
-                isProcessRunning = true;
-                //Đăng ký bản quyền
-                new Aspose.Pdf.License().SetLicense(Helper.License.LStream);
-                Resolution resolution = new Resolution(300);
-                PngDevice pnDevice = new PngDevice(resolution);
-                Document document = new Document(txtFilePDF.Text);
-                var pathFile = txtSaveFile.Text;
-                var name = Path.GetFileNameWithoutExtension(txtFilePDF.Text);
-
-                //processBar.Minimum = 0;
-                //processBar.Maximum = document.Pages.Count;
-                for (int pageCount = 1; pageCount <= document.Pages.Count; pageCount++)
-                {
-                    var path = $"{pathFile}/{name}_{pageCount}.png";
-                    using (FileStream imageStream = new FileStream(path, FileMode.Create))
-                    {
-                        // Convert a particular page and save the image to stream
-                        pnDevice.Process(document.Pages[pageCount], imageStream);
-                        //processBar.Value = pageCount;
-                        // Close stream
-                        imageStream.Close();
-                        lstImage.Images.Add(Icon.ExtractAssociatedIcon(path));
-                        FileInfo fi = new FileInfo(path);
-                        listFiles.Add(fi.FullName);
-                        //lstView.Items.Add(fi.Name, lstImage.Images.Count - 1);
-
-                    }
-                    Thread.Sleep(2);
-                    if(pageCount < 100) {
-                        progressBar.UpdateProgress(pageCount);
-                    }
-                    
-                }
-                isProcessRunning = false;
-            }));
-            th.Start();
-            progressBar.ShowDialog();
-            progressBar.Close();
-            MessageBox.Show("Chuyển đổi thành công", "Thông báo");
+            bw.RunWorkerAsync();
         }
-
+        private void ShowImage()
+        {
+            
+        }
         private void btnSaveFile_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog fbd = new FolderBrowserDialog())
@@ -124,16 +80,72 @@ namespace ConvertPDFTool
 
             }
         }
-
-        private void loading()
+        private void frmConvertPDFtoPNG_Load(object sender, EventArgs e)
         {
-            for (int i = 0; i < 100; i++)
+            bw = new BackgroundWorker();
+            bw.WorkerReportsProgress = true;
+            bw.WorkerSupportsCancellation = true;
+
+            bw.DoWork += bw_DoWork;
+            bw.ProgressChanged += bw_ProgressChanged;
+            bw.RunWorkerCompleted += bw_RunworkerCompleted;
+        }
+
+        private void bw_RunworkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            MessageBox.Show("Chuyển đổi thành công", "Thông báo");
+        }
+
+        private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            processBar.Maximum = document.Pages.Count;
+            processBar.Value = e.ProgressPercentage;
+            //foreach (string item in Directory.GetFiles(txtSaveFile.Text))
+            //{
+            //    lstImage.Images.Add(Icon.ExtractAssociatedIcon(item));
+            //    FileInfo fi = new FileInfo(item);
+            //    listFiles.Add(fi.FullName);
+            //    lstView.Items.Add(fi.Name, lstImage.Images.Count - 1);
+            //}
+            Application.DoEvents();
+        }
+
+        private void bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            if (Path.GetExtension(txtFilePDF.Text).ToLower() != ".pdf")
+                return;
+            
+            //Đăng ký bản quyền
+            new Aspose.Pdf.License().SetLicense(Helper.License.LStream);
+            Resolution resolution = new Resolution(300);
+            PngDevice pnDevice = new PngDevice(resolution);
+            document = new Document(txtFilePDF.Text);
+            var pathFile = txtSaveFile.Text;
+            var name = Path.GetFileNameWithoutExtension(txtFilePDF.Text);
+            ProgressDialog frm = new ProgressDialog();
+            
+            for (int pageCount = 1; pageCount <= document.Pages.Count; pageCount++)
             {
-                if (processBar.InvokeRequired)
-                    processBar.Invoke(new Action(loading));
-                else
-                    processBar.Value = i;
+                if (bw.CancellationPending)
+                    break;
+                var path = $"{pathFile}/{name}_{pageCount}.png";
+                using (FileStream imageStream = new FileStream(path, FileMode.Create))
+                {
+                    // Convert a particular page and save the image to stream
+                    pnDevice.Process(document.Pages[pageCount], imageStream);
+                    bw.ReportProgress(pageCount);
+                    
+                    // Close stream
+                    imageStream.Close();
+                    
+                }
             }
+            
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            bw.CancelAsync();
         }
     }
 }
