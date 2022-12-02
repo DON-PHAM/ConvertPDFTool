@@ -22,6 +22,14 @@ namespace ConvertPDFTool
         }
         private void frmConvertPDF_Load(object sender, EventArgs e)
         {
+            lstView.View = View.Details;
+            lstView.GridLines = true;
+            lstView.FullRowSelect = true;
+            lstView.Columns.Add("STT");
+            
+            lstView.Columns.Add("Tên File");
+            lstView.Columns[1].Width = 350;
+            lstView.Columns.Add("Số Trang");
             txtChooseFile.Enabled = false;
             txtSaveFile.Enabled = false;
             txtSelectPage.Enabled = false;
@@ -42,10 +50,7 @@ namespace ConvertPDFTool
 
         private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            processBar.Maximum = pdfDocument.Pages.Count;
             processBar.Value = e.ProgressPercentage;
-
-            
             Application.DoEvents();
         }
 
@@ -66,9 +71,32 @@ namespace ConvertPDFTool
                 var pathFile = txtSaveFile.Text + "\\" + nameFile + "_" + pageCount + ".pdf";
                 //lstView.Items.Add(pathFile);
                 newDocument.Save(pathFile);
-                (sender as BackgroundWorker).ReportProgress(pageCount);
+                (sender as BackgroundWorker).ReportProgress(pageCount*100/pdfDocument.Pages.Count);
+               
+                lbPercent.Invoke(new Action(() =>
+                {
+                    lbPercent.Text = (pageCount * 100 / pdfDocument.Pages.Count).ToString() + "%";
+                }));
+                if (InvokeRequired)
+                {
+                    Invoke((MethodInvoker)delegate { AddItem(pathFile, pageCount); });
+                }
+                else
+                {
+                    AddItem(pathFile, pageCount);
+                }
                 pageCount++;
             }
+
+        }
+
+        private void AddItem(string path, int pageCount)
+        {
+            string name = Path.GetFileName(path);
+            ListViewItem items = new ListViewItem();
+            items.SubItems.Add(name);
+            items.SubItems.Add(pageCount.ToString());
+            lstView.Items.Add(items);
         }
 
         private void btnChooseFile_Click(object sender, EventArgs e)

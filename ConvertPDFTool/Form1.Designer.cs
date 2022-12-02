@@ -37,13 +37,14 @@ namespace ConvertPDFTool
             this.btnConvert = new MaterialSkin.Controls.MaterialRaisedButton();
             this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             this.processBar = new System.Windows.Forms.ProgressBar();
-            this.lstView = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cbPage = new System.Windows.Forms.CheckBox();
             this.txtSelectPage = new System.Windows.Forms.TextBox();
             this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lbPercent = new System.Windows.Forms.Label();
+            this.lstView = new System.Windows.Forms.ListView();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -149,17 +150,6 @@ namespace ConvertPDFTool
             this.processBar.Size = new System.Drawing.Size(151, 18);
             this.processBar.TabIndex = 7;
             // 
-            // lstView
-            // 
-            this.lstView.FormattingEnabled = true;
-            this.lstView.ItemHeight = 15;
-            this.lstView.Items.AddRange(new object[] {
-            " "});
-            this.lstView.Location = new System.Drawing.Point(19, 229);
-            this.lstView.Name = "lstView";
-            this.lstView.Size = new System.Drawing.Size(489, 304);
-            this.lstView.TabIndex = 9;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -217,17 +207,35 @@ namespace ConvertPDFTool
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(115, 17);
             this.toolStripStatusLabel1.Text = "copyright © DONPV";
             // 
+            // lbPercent
+            // 
+            this.lbPercent.AutoSize = true;
+            this.lbPercent.Location = new System.Drawing.Point(569, 300);
+            this.lbPercent.Name = "lbPercent";
+            this.lbPercent.Size = new System.Drawing.Size(0, 15);
+            this.lbPercent.TabIndex = 15;
+            // 
+            // lstView
+            // 
+            this.lstView.HideSelection = false;
+            this.lstView.Location = new System.Drawing.Point(6, 229);
+            this.lstView.Name = "lstView";
+            this.lstView.Size = new System.Drawing.Size(502, 323);
+            this.lstView.TabIndex = 16;
+            this.lstView.UseCompatibleStateImageBehavior = false;
+            // 
             // frmConvertPDF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(676, 577);
+            this.Controls.Add(this.lstView);
+            this.Controls.Add(this.lbPercent);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.materialLabel2);
             this.Controls.Add(this.txtSelectPage);
             this.Controls.Add(this.cbPage);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.lstView);
             this.Controls.Add(this.processBar);
             this.Controls.Add(this.materialLabel1);
             this.Controls.Add(this.btnConvert);
@@ -258,13 +266,14 @@ namespace ConvertPDFTool
         private MaterialSkin.Controls.MaterialLabel materialLabel1;
         private System.Windows.Forms.ProgressBar processBar;
         private System.Windows.Forms.Label lbProcessBar;
-        private System.Windows.Forms.ListBox lstView;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox cbPage;
         private System.Windows.Forms.TextBox txtSelectPage;
         private MaterialSkin.Controls.MaterialLabel materialLabel2;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.Label lbPercent;
+        private System.Windows.Forms.ListView lstView;
     }
 }
 

@@ -205,9 +205,8 @@ namespace ConvertPDFTool
             this.lbPercent.AutoSize = true;
             this.lbPercent.Location = new System.Drawing.Point(723, 261);
             this.lbPercent.Name = "lbPercent";
-            this.lbPercent.Size = new System.Drawing.Size(38, 15);
+            this.lbPercent.Size = new System.Drawing.Size(0, 15);
             this.lbPercent.TabIndex = 11;
-            this.lbPercent.Text = "label2";
             // 
             // statusStrip1
             // 
