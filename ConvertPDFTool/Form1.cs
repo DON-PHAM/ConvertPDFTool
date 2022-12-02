@@ -33,6 +33,8 @@ namespace ConvertPDFTool
             txtChooseFile.Enabled = false;
             txtSaveFile.Enabled = false;
             txtSelectPage.Enabled = false;
+            processBar.Visible= false;
+            
 
             bw = new BackgroundWorker();
             bw.WorkerReportsProgress = true;
@@ -146,6 +148,7 @@ namespace ConvertPDFTool
 
         private void btnConvert_Click(object sender, EventArgs e)
         {
+            processBar.Show();
             if(!bw.IsBusy)
                 bw.RunWorkerAsync();
         }
@@ -161,6 +164,11 @@ namespace ConvertPDFTool
                 txtSelectPage.Enabled = true;
             else
                 txtSelectPage.Enabled = false;
+        }
+
+        private void processBar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

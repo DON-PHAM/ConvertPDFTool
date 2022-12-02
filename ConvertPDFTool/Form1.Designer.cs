@@ -120,7 +120,7 @@ namespace ConvertPDFTool
             // btnConvert
             // 
             this.btnConvert.Depth = 0;
-            this.btnConvert.Location = new System.Drawing.Point(514, 229);
+            this.btnConvert.Location = new System.Drawing.Point(514, 228);
             this.btnConvert.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnConvert.Name = "btnConvert";
             this.btnConvert.Primary = true;
@@ -145,7 +145,7 @@ namespace ConvertPDFTool
             // 
             // processBar
             // 
-            this.processBar.Location = new System.Drawing.Point(514, 279);
+            this.processBar.Location = new System.Drawing.Point(514, 278);
             this.processBar.Name = "processBar";
             this.processBar.Size = new System.Drawing.Size(151, 18);
             this.processBar.TabIndex = 7;
@@ -164,7 +164,7 @@ namespace ConvertPDFTool
             // cbPage
             // 
             this.cbPage.AutoSize = true;
-            this.cbPage.Location = new System.Drawing.Point(106, 177);
+            this.cbPage.Location = new System.Drawing.Point(111, 179);
             this.cbPage.Name = "cbPage";
             this.cbPage.Size = new System.Drawing.Size(15, 14);
             this.cbPage.TabIndex = 11;
@@ -210,7 +210,7 @@ namespace ConvertPDFTool
             // lbPercent
             // 
             this.lbPercent.AutoSize = true;
-            this.lbPercent.Location = new System.Drawing.Point(569, 300);
+            this.lbPercent.Location = new System.Drawing.Point(578, 281);
             this.lbPercent.Name = "lbPercent";
             this.lbPercent.Size = new System.Drawing.Size(0, 15);
             this.lbPercent.TabIndex = 15;
