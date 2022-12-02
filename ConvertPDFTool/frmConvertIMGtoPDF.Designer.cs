@@ -29,19 +29,45 @@ namespace ConvertPDFTool
         /// </summary>
         private void InitializeComponent()
         {
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 393);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(755, 22);
+            this.statusStrip1.TabIndex = 0;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(115, 17);
+            this.toolStripStatusLabel1.Text = "copyright © DONPV";
             // 
             // frmConvertIMGtoPDF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(755, 415);
+            this.Controls.Add(this.statusStrip1);
             this.Name = "frmConvertIMGtoPDF";
             this.Text = "frmConvertIMGtoPDF";
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
     }
 }

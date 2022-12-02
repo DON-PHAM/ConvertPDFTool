@@ -42,6 +42,9 @@ namespace ConvertPDFTool
             this.cbPage = new System.Windows.Forms.CheckBox();
             this.txtSelectPage = new System.Windows.Forms.TextBox();
             this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtChooseFile
@@ -198,11 +201,28 @@ namespace ConvertPDFTool
             this.materialLabel2.TabIndex = 13;
             this.materialLabel2.Text = "Chọn trang";
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 555);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(676, 22);
+            this.statusStrip1.TabIndex = 14;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(115, 17);
+            this.toolStripStatusLabel1.Text = "copyright © DONPV";
+            // 
             // frmConvertPDF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(676, 577);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.materialLabel2);
             this.Controls.Add(this.txtSelectPage);
             this.Controls.Add(this.cbPage);
@@ -220,6 +240,8 @@ namespace ConvertPDFTool
             this.Text = "Convert PDF Tool";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmConvertPDF_FormClosing);
             this.Load += new System.EventHandler(this.frmConvertPDF_Load);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -241,6 +263,8 @@ namespace ConvertPDFTool
         private System.Windows.Forms.CheckBox cbPage;
         private System.Windows.Forms.TextBox txtSelectPage;
         private MaterialSkin.Controls.MaterialLabel materialLabel2;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
     }
 }
 

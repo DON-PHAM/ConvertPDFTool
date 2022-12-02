@@ -74,8 +74,8 @@ namespace ConvertPDFTool
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(180, 17);
-            this.toolStripStatusLabel1.Text = "Thiết kế và phát triển bởi DONPV";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(115, 17);
+            this.toolStripStatusLabel1.Text = "copyright © DONPV";
             // 
             // label1
             // 

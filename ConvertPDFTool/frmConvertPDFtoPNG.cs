@@ -34,8 +34,8 @@ namespace ConvertPDFTool
             //lstView.FullRowSelect = true;
             //lstView.Columns.Add("File Name");
             //lstView.Columns.Add("Page");
-
-
+            btnCancel.Enabled = false;
+            btnSaveFile.Enabled = true;
             bw = new BackgroundWorker();
             bw.WorkerReportsProgress = true;
             bw.WorkerSupportsCancellation = true;
@@ -81,11 +81,15 @@ namespace ConvertPDFTool
 
         private void btnConvert_Click(object sender, EventArgs e)
         {
+            
             if (txtFilePDF.Text == "" || txtSaveFile.Text == "")
             {
                 MessageBox.Show("Chưa có thông tin file hoặc đường dẫn lưu file");
+                
                 return;
             }
+            btnConvert.Enabled = false;
+            btnCancel.Enabled = true;
             lstView.Items.Clear();
             listFiles.Clear();
             lstView.Items.Clear();
@@ -115,9 +119,9 @@ namespace ConvertPDFTool
 
         private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            processBar.Maximum = document.Pages.Count;
+            //processBar.Maximum = document.Pages.Count;
             processBar.Value = e.ProgressPercentage;
-
+           
 
             Application.DoEvents();
         }
@@ -127,7 +131,7 @@ namespace ConvertPDFTool
 
             if (Path.GetExtension(txtFilePDF.Text).ToLower() != ".pdf")
                 return;
-            //Đăng ký bản quyền
+            //Đăng ký bản quyền ASPOSE
             new Aspose.Pdf.License().SetLicense(Helper.License.LStream);
             Resolution resolution = new Resolution(300);
             PngDevice pnDevice = new PngDevice(resolution);
@@ -146,17 +150,16 @@ namespace ConvertPDFTool
                 var path = $"{pathFile}\\{name}_{pageCount}.png";
                 using (FileStream imageStream = new FileStream(path, FileMode.Create))
                 {
-                    // Convert a particular page and save the image to stream
+                    // Chuyển đổi và lưu trang PDF sang ảnh qua Stream
                     pnDevice.Process(document.Pages[pageCount], imageStream);
-                    (sender as BackgroundWorker).ReportProgress(pageCount);
-                    // Close stream
+                    (sender as BackgroundWorker).ReportProgress(pageCount*100/document.Pages.Count);
+                    // Đóng Stream
                     imageStream.Close();
                 }
-
-
-                //FileInfo fi = new FileInfo(path);
-                //listFiles.Add(fi.FullName);
-
+                lbPercent.Invoke(new Action(() =>
+                {
+                    lbPercent.Text = (pageCount * 100 / document.Pages.Count).ToString()+"%";
+                }));
                 if (InvokeRequired)
                 {
                     Invoke((MethodInvoker)delegate { AddItem(path, pageCount); });

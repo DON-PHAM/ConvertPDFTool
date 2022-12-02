@@ -43,6 +43,10 @@ namespace ConvertPDFTool
             this.processBar = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
             this.btnCancel = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.lbPercent = new System.Windows.Forms.Label();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtFilePDF
@@ -183,22 +187,51 @@ namespace ConvertPDFTool
             // 
             // btnCancel
             // 
+            this.btnCancel.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.btnCancel.Depth = 0;
-            this.btnCancel.Location = new System.Drawing.Point(685, 280);
+            this.btnCancel.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnCancel.Location = new System.Drawing.Point(684, 312);
             this.btnCancel.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Primary = true;
             this.btnCancel.Size = new System.Drawing.Size(103, 23);
             this.btnCancel.TabIndex = 10;
             this.btnCancel.Text = "Hủy";
-            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // lbPercent
+            // 
+            this.lbPercent.AutoSize = true;
+            this.lbPercent.Location = new System.Drawing.Point(723, 261);
+            this.lbPercent.Name = "lbPercent";
+            this.lbPercent.Size = new System.Drawing.Size(38, 15);
+            this.lbPercent.TabIndex = 11;
+            this.lbPercent.Text = "label2";
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 515);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(799, 22);
+            this.statusStrip1.TabIndex = 12;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(115, 17);
+            this.toolStripStatusLabel1.Text = "copyright © DONPV";
             // 
             // frmConvertPDFtoPNG
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(799, 537);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.lbPercent);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.processBar);
@@ -213,6 +246,8 @@ namespace ConvertPDFTool
             this.Name = "frmConvertPDFtoPNG";
             this.Text = "frmConvertPDFtoPNG";
             this.Load += new System.EventHandler(this.frmConvertPDFtoPNG_Load);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -233,5 +268,8 @@ namespace ConvertPDFTool
         private System.Windows.Forms.Label label1;
         private MaterialSkin.Controls.MaterialRaisedButton btnCancel;
         private System.Windows.Forms.ColumnHeader filename;
+        private System.Windows.Forms.Label lbPercent;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
     }
 }
